@@ -1,0 +1,137 @@
+<html>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> -->
+<head>
+<script type="text/javascript" src="http://172.17.222.240/jwplayer-7.4.4/jwplayer.js"></script>
+<script type="text/javascript">jwplayer.key="+LqYLkgdBUEcNy6k17TH/Po5atbDt6E0DefnMJEFN/4=";</script>
+<!-- <script src="//content.jwplatform.com/libraries/L6PIAr5g.js"></script> -->
+<!-- <script src="//content.jwplatform.com/players/xp2JkwVy-L6PIAr5g.js"></script> -->
+<!-- <script src="http://content.jwplatform.com/libraries/sNkrwykF.js"></script> -->
+<title> Test JW Player </title>
+<style>
+div#left {
+    width: 50%;
+    float: left;
+}
+div#right {
+    margin-left: 50%;
+}
+h1{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+li{
+	text-decoration: underline;
+}
+li:hover{
+	text-decoration: none;
+}
+
+</style>
+</head>
+<body>
+<div id = "left">
+<h1>iON</h1>
+<div id="my-video1"></div>
+
+<ul>
+	<li onclick="playVideo(0)">Bharathiar </li>
+	<li onclick="playVideo(1)">City Lifestyle </li>
+	<li onclick="playVideo(2)">Community </li>
+	<li onclick="playVideo(3)">Wildlife </li>
+</ul>
+
+</div>
+<div id = "right">
+<h1>Akamai</h1>
+<div id="my-video2"></div>
+</div>
+
+<script type="text/javascript">
+	function playVideo(index){
+		jwplayer().playlistItem(index);
+	}
+
+	jwplayer("my-video1").setup({
+		playlist: [{
+			title: "Bharathiar - Learning Exchange",
+			file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_playlist.m3u8",
+			image: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_poster.jpg",
+			tracks: [{ 
+				file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_preview.vtt", 
+				kind: "thumbnails"
+			}],
+			mediaid: "12345"
+		},{
+			"title": "City Lifestyle",
+			"image": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_poster.jpg",
+			"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8",
+			"tracks": [{ 
+					"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_preview.vtt", 
+					"kind": "thumbnails"
+				}],
+			"mediaid": "56789"
+		},{
+			"title": "Community",
+			"image": "test_stream/Community_MEDIUM/Community_MEDIUM_poster.jpg",
+			"file": "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8",
+			"tracks": [{ 
+					"file": "test_stream/Community_MEDIUM/Community_MEDIUM_preview.vtt", 
+					"kind": "thumbnails"
+				}],
+			"mediaid": "54321"
+		},{
+			"title": "Wildlife",
+			"image": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_poster.jpg",
+			"file": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_playlist.m3u8",
+			"tracks": [{ 
+					"file": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_preview.vtt", 
+					"kind": "thumbnails"
+				}],
+			"mediaid": "98765"
+		}],
+		logo:{
+				hide: true,
+				position: "top-left",
+					file: 'test_stream/ion-logo.png',
+				link: 'http://www.tcsion.com/'
+		},
+		related: {
+			file: "test_stream/MEDIAID.json",
+			onclick: "play",
+			oncomplete: 'autoplay',
+			autoplaytimer: 10
+		},
+		width: "95%",
+		aspectratio:'16:9',
+		autostart: false,
+		hlshtml: true,
+		sharing: {}
+	});
+
+	jwplayer("my-video2").setup({
+		file: "http://tcsionsp-vh.akamaihd.net/i/stream-test/Bharathiar - Learning Exchange_MEDIUM_,357k,514k,816k,1428k,3162k,.mp4.csmil/master.m3u8?hdnts=exp=1468910556~acl=/*~hmac=b2057677c9f8deac88e69745e3d6ebee60a250bb487264e1135ddd043df4c9e0", 
+		width: "95%",
+		aspectratio:'16:9',
+		autostart: false,
+		hlshtml: true
+	});
+	
+	jwplayer().onReady( function(event){
+		jwplayer().addButton("speed.png", "Increase Speed", function(){ 
+			document.getElementsByTagName('video')[0].playbackRate=2;
+		} , "speedUp");
+		
+		jwplayer().addButton("speed.png", "Decrease Speed", function(){ 
+			document.getElementsByTagName('video')[0].playbackRate=0.5;
+		} , "slowDown");
+		
+		jwplayer().addButton("speed.png", "Normal Speed", function(){ 
+			document.getElementsByTagName('video')[0].playbackRate=1;
+		} , "normalSpeed");
+	}); 
+	
+	
+	
+</script>
+</body>
+</html>
