@@ -1,0 +1,31 @@
+[ 
+	{
+		"title": "City Lifestyle",
+		"image": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_poster.jpg",
+		"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8",
+		"tracks": [{ 
+				"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_preview.vtt", 
+				"kind": "thumbnails"
+			}],
+		"mediaid": "56789"
+	},
+	{
+		"title": "Community",
+		"image": "test_stream/Community_MEDIUM/Community_MEDIUM_poster.jpg",
+		"file": "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8",
+		"tracks": [{ 
+				"file": "test_stream/Community_MEDIUM/Community_MEDIUM_preview.vtt", 
+				"kind": "thumbnails"
+			}],
+		"mediaid": "54321"
+	},{
+		"title": "Bharathiar - Learning Exchange",
+		"image": "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_poster.jpg",
+		"file": "http://172.17.222.240/ffmpegTest/test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_playlist.m3u8",
+		"tracks": [{ 
+				"file": "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_preview.vtt", 
+				"kind": "thumbnails"
+			}],
+		"mediaid": "12345"
+	}
+]

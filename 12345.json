@@ -1,0 +1,31 @@
+[ 
+	{
+		"title": "City Lifestyle",
+		"image": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_poster.jpg",
+		"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8",
+		"tracks": [{ 
+				"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_preview.vtt", 
+				"kind": "thumbnails"
+			}],
+		"mediaid": "56789"
+	},
+	{
+		"title": "Community",
+		"image": "test_stream/Community_MEDIUM/Community_MEDIUM_poster.jpg",
+		"file": "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8",
+		"tracks": [{ 
+				"file": "test_stream/Community_MEDIUM/Community_MEDIUM_preview.vtt", 
+				"kind": "thumbnails"
+			}],
+		"mediaid": "54321"
+	},{
+		"title": "Wildlife",
+		"image": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_poster.jpg",
+		"file": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_playlist.m3u8",
+		"tracks": [{ 
+				"file": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_preview.vtt", 
+				"kind": "thumbnails"
+			}],
+		"mediaid": "98765"
+	}
+]
