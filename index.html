@@ -50,10 +50,13 @@ h1{
 	jwplayer("my-video1").setup({
 		playlist: [{
 			title: "Bharathiar - Learning Exchange",
-			sources: [
-				{file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_playlist.m3u8", type: "hls"},
-				{file: "test_stream/Community_MEDIUM/Community.mp4", type: "mp4"}
-			],
+			sources: [{
+					file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_playlist.m3u8", 
+					type: "hls"
+				},{
+					file: "test_stream/Community_MEDIUM/Community.mp4", 
+					type: "mp4"
+			}],
 			image: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_poster.jpg",
 			tracks: [{ 
 				file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_preview.vtt", 
@@ -62,10 +65,13 @@ h1{
 			mediaid: "12345"
 		},{
 			title: "City Lifestyle",
-			sources: [
-				{file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8", type:"hls"},
-				{file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.mp4" , type:"mp4"}
-			],
+			sources: [{
+					file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8", 
+					type:"hls"
+				},{
+					file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.mp4", 
+					type:"mp4"
+			}],
 			image: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_poster.jpg",
 			tracks: [{ 
 					file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_preview.vtt", 
@@ -74,10 +80,13 @@ h1{
 			mediaid: "56789"
 		},{
 			title: "Community",
-			sources: [
-				{file: "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8", type:"hls"},
-				{file: "test_stream/Community_MEDIUM/Community.mp4",  type:"mp4"}
-			],
+			sources: [{
+					file: "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8", 
+					type:"hls"
+				},{
+					file: "test_stream/Community_MEDIUM/Community.mp4",
+					type:"mp4"
+			}],
 			image: "test_stream/Community_MEDIUM/Community_MEDIUM_poster.jpg",
 			tracks: [{ 
 					file: "test_stream/Community_MEDIUM/Community_MEDIUM_preview.vtt", 
@@ -86,10 +95,13 @@ h1{
 			mediaid: "54321"
 		},{
 			title: "Wildlife",
-			sources: [
-				{file: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_playlist.m3u8", type:"hls"},
-				{file: "test_stream/Community_MEDIUM/citylifestyle_MEDIUM_playlist.mp4", type:"mp4"}
-			],
+			sources: [{
+					file: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_playlist.m3u8", 
+					type:"hls"
+				},{
+					file: "test_stream/Community_MEDIUM/citylifestyle_MEDIUM_playlist.mp4", 
+					type:"mp4"
+			}],
 			image: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_poster.jpg",
 			tracks: [{ 
 					file: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_preview.vtt", 
@@ -138,28 +150,37 @@ h1{
 		jwplayer().addButton("fast-backward.png", "Decrease Speed", function(){ 
 			document.getElementsByTagName('video')[0].playbackRate=0.5;
 		} , "slowDown");
+		
 	}); 
 	
 	jwplayer().onComplete( removeButtons );
 	
-	var origPlaylist = jwplayer().getPlaylist().slice();
-	jwplayer().onError( function(){
-		var index = jwplayer().getPlaylistIndex();
-		var newPlaylist = jwplayer().getPlaylist().slice();
-		var video = origPlaylist[index];
-		newPlaylist.splice(index, 1);
-		
-		var temp = video.sources[0];		
-		video.sources[0] = video.allSources[1];
-		video.allSources[0] = video.sources[0];
-		video.allSources[1] = temp;
-		newPlaylist.splice(index, 0, video);
-		var tracks = newPlaylist[0].tracks;
-		delete newPlaylist[0].tracks;
+	var originalPlaylist = jwplayer().getPlaylist().slice(); 		//to store the original metadata of the playlist
+	jwplayer().on("error", function(e){
+		if(e.code === undefined){ 
+			console.log("Fallback failed!");
+		}
+		else if(e.code === -1){ 
+			var index = jwplayer().getPlaylistIndex(); 					//get index of video being played currently
+			var newPlaylist = jwplayer().getPlaylist().slice(); 		//copy contents of the playlist to newPlaylist to make changes
+			var video = originalPlaylist[index]; 						//get the original metadata of the video being played right now, since originalPlaylist contains the true value of the fallback files
+			newPlaylist.splice(index, 1); 								//delete the video from the new playlist (will be added again after making changes below). This needs to be done as making changes to the playlist while the object was in the playlist led to unusual errors (randomly deletes data, data from one object copied to another etc.) 
+			
+			var temp = video.sources[0]; 								//get the current file playing (will most likely be the m3u8 file)
+			video.sources[0] = video.allSources[1]; 					//set the source to be played as the fallback file which is stored in allSources
+			video.allSources[0] = video.sources[0]; 					//also update the allSources to reflect the fallback file
+			video.allSources[1] = temp; 								//set the 2nd source to original source (will most likely be the m3u8 file)
+			newPlaylist.splice(index, 0, video); 						//put the video back into the playlist
+			var tracks = newPlaylist[0].tracks; 						//store the tracks of the first video to be added later
+			delete newPlaylist[0].tracks; 								//delete tracks from the first video. This needs to be done to avoid unusual errors (comment out this line and the push statement below to see errors.)
 
-		jwplayer().load(newPlaylist);
-		jwplayer().getPlaylist()[0].tracks.push(tracks[0]);		
-		jwplayer().playlistItem(index);
+			jwplayer().load(newPlaylist); 								//load the updated playlist
+			jwplayer().getPlaylist()[0].tracks = tracks; 				//re-add the tracks to the first file
+			jwplayer().playlistItem(index); 							//restart playback on index
+		}
+		else{
+			console.log(e.message ); //Some other error
+		}
 	}); 
 	
 	jwplayer().onPlaylistItem( removeButtons );  
