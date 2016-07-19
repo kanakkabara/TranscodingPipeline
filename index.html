@@ -6,6 +6,20 @@
 <!-- <script src="//content.jwplatform.com/libraries/L6PIAr5g.js"></script> -->
 <!-- <script src="//content.jwplatform.com/players/xp2JkwVy-L6PIAr5g.js"></script> -->
 <!-- <script src="http://content.jwplatform.com/libraries/sNkrwykF.js"></script> -->
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-80690141-1', {
+		'cookieDomain': 'none'
+	});
+	ga('send', 'pageview');
+
+</script>
+
 <title> Test JW Player </title>
 <style>
 div#left {
@@ -19,12 +33,6 @@ h1{
     margin-top: 0px;
     margin-bottom: 0px;
 }
-li{
-	text-decoration: underline;
-}
-li:hover{
-	text-decoration: none;
-}
 
 </style>
 </head>
@@ -32,14 +40,6 @@ li:hover{
 <div id = "left">
 <h1>iON</h1>
 <div id="my-video1"></div>
-
-<ul>
-	<li onclick="playVideo(0)">Bharathiar </li>
-	<li onclick="playVideo(1)">City Lifestyle </li>
-	<li onclick="playVideo(2)">Community </li>
-	<li onclick="playVideo(3)">Wildlife </li>
-</ul>
-
 </div>
 <div id = "right">
 <h1>Akamai</h1>
@@ -47,14 +47,13 @@ li:hover{
 </div>
 
 <script type="text/javascript">
-	function playVideo(index){
-		jwplayer().playlistItem(index);
-	}
-
 	jwplayer("my-video1").setup({
 		playlist: [{
 			title: "Bharathiar - Learning Exchange",
-			file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_playlist.m3u8",
+			sources: [
+				{file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_playlist.m3u8", type: "hls"},
+				{file: "test_stream/Community_MEDIUM/Community.mp4", type: "mp4"}
+			],
 			image: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_poster.jpg",
 			tracks: [{ 
 				file: "test_stream/Bharathiar - Learning Exchange_MEDIUM/Bharathiar - Learning Exchange_MEDIUM_preview.vtt", 
@@ -62,74 +61,118 @@ li:hover{
 			}],
 			mediaid: "12345"
 		},{
-			"title": "City Lifestyle",
-			"image": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_poster.jpg",
-			"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8",
-			"tracks": [{ 
-					"file": "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_preview.vtt", 
-					"kind": "thumbnails"
+			title: "City Lifestyle",
+			sources: [
+				{file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.m3u8", type:"hls"},
+				{file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_playlist.mp4" , type:"mp4"}
+			],
+			image: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_poster.jpg",
+			tracks: [{ 
+					file: "test_stream/citylifestyle_MEDIUM/citylifestyle_MEDIUM_preview.vtt", 
+					kind: "thumbnails"
 				}],
-			"mediaid": "56789"
+			mediaid: "56789"
 		},{
-			"title": "Community",
-			"image": "test_stream/Community_MEDIUM/Community_MEDIUM_poster.jpg",
-			"file": "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8",
-			"tracks": [{ 
-					"file": "test_stream/Community_MEDIUM/Community_MEDIUM_preview.vtt", 
-					"kind": "thumbnails"
+			title: "Community",
+			sources: [
+				{file: "test_stream/Community_MEDIUM/Community_MEDIUM_playlist.m3u8", type:"hls"},
+				{file: "test_stream/Community_MEDIUM/Community.mp4",  type:"mp4"}
+			],
+			image: "test_stream/Community_MEDIUM/Community_MEDIUM_poster.jpg",
+			tracks: [{ 
+					file: "test_stream/Community_MEDIUM/Community_MEDIUM_preview.vtt", 
+					kind: "thumbnails"
 				}],
-			"mediaid": "54321"
+			mediaid: "54321"
 		},{
-			"title": "Wildlife",
-			"image": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_poster.jpg",
-			"file": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_playlist.m3u8",
-			"tracks": [{ 
-					"file": "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_preview.vtt", 
-					"kind": "thumbnails"
+			title: "Wildlife",
+			sources: [
+				{file: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_playlist.m3u8", type:"hls"},
+				{file: "test_stream/Community_MEDIUM/citylifestyle_MEDIUM_playlist.mp4", type:"mp4"}
+			],
+			image: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_poster.jpg",
+			tracks: [{ 
+					file: "test_stream/Wildlife_MEDIUM/Wildlife_MEDIUM_preview.vtt", 
+					kind: "thumbnails"
 				}],
-			"mediaid": "98765"
+			mediaid: "98765", 
 		}],
 		logo:{
 				hide: true,
 				position: "top-left",
-					file: 'test_stream/ion-logo.png',
-				link: 'http://www.tcsion.com/'
+				file: "test_stream/ion-logo.png",
+				link: "http://www.tcsion.com/"
 		},
 		related: {
 			file: "test_stream/MEDIAID.json",
 			onclick: "play",
-			oncomplete: 'autoplay',
+			oncomplete: "autoplay",
 			autoplaytimer: 10
 		},
+		primary: "flash",
 		width: "95%",
-		aspectratio:'16:9',
+		aspectratio:"16:9",
 		autostart: false,
 		hlshtml: true,
-		sharing: {}
+		sharing: {},
+		ga: {}
 	});
 
 	jwplayer("my-video2").setup({
-		file: "http://tcsionsp-vh.akamaihd.net/i/stream-test/Bharathiar - Learning Exchange_MEDIUM_,357k,514k,816k,1428k,3162k,.mp4.csmil/master.m3u8?hdnts=exp=1468910556~acl=/*~hmac=b2057677c9f8deac88e69745e3d6ebee60a250bb487264e1135ddd043df4c9e0", 
+		file: "http://tcsionsp-vh.akamaihd.net/i/stream-test/Bharathiar - Learning Exchange_MEDIUM_,357k,514k,816k,1428k,3162k,.mp4.csmil/master.m3u8?hdnts=exp=1469082774~acl=/*~hmac=a5ea3ea720632eaf92c5a9e3600489274397ecb345932136ac507cbf38f4ef30", 
 		width: "95%",
 		aspectratio:'16:9',
 		autostart: false,
 		hlshtml: true
 	});
 	
-	jwplayer().onReady( function(event){
-		jwplayer().addButton("speed.png", "Increase Speed", function(){ 
+	jwplayer().onPlay( function(event){
+		jwplayer().addButton("fast-forward.png", "Increase Speed", function(){ 
 			document.getElementsByTagName('video')[0].playbackRate=2;
 		} , "speedUp");
 		
-		jwplayer().addButton("speed.png", "Decrease Speed", function(){ 
-			document.getElementsByTagName('video')[0].playbackRate=0.5;
-		} , "slowDown");
-		
-		jwplayer().addButton("speed.png", "Normal Speed", function(){ 
+		jwplayer().addButton("play-xxl.png", "Normal Speed", function(){ 
 			document.getElementsByTagName('video')[0].playbackRate=1;
 		} , "normalSpeed");
+		
+		jwplayer().addButton("fast-backward.png", "Decrease Speed", function(){ 
+			document.getElementsByTagName('video')[0].playbackRate=0.5;
+		} , "slowDown");
 	}); 
 	
+	jwplayer().onComplete( removeButtons );
+	
+	var origPlaylist = jwplayer().getPlaylist().slice();
+	jwplayer().onError( function(){
+		var index = jwplayer().getPlaylistIndex();
+		var newPlaylist = jwplayer().getPlaylist().slice();
+		var video = origPlaylist[index];
+		newPlaylist.splice(index, 1);
+		
+		var temp = video.sources[0];		
+		video.sources[0] = video.allSources[1];
+		video.allSources[0] = video.sources[0];
+		video.allSources[1] = temp;
+		newPlaylist.splice(index, 0, video);
+		var tracks = newPlaylist[0].tracks;
+		delete newPlaylist[0].tracks;
+
+		jwplayer().load(newPlaylist);
+		jwplayer().getPlaylist()[0].tracks.push(tracks[0]);		
+		jwplayer().playlistItem(index);
+	}); 
+	
+	jwplayer().onPlaylistItem( removeButtons );  
+	
+	jwplayer().onReady( function(event){
+		console.log("ready");
+	} );
+	
+	function removeButtons(){
+		jwplayer().removeButton("speedUp");
+		jwplayer().removeButton("normalSpeed");
+		jwplayer().removeButton("slowDown");
+	};
 	
 	
 </script>
